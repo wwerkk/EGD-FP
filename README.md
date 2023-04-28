@@ -1,3 +1,3 @@
 Expressive Game Design Final Project
 
-[Playable - most recent development build available online](https://doc.gold.ac.uk/~wwerk001/)
+Musical listening game with real-time audio synthesis implemented using [Synthic](https://github.com/rhedgeco/Synthic)
