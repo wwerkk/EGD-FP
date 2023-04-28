@@ -9,9 +9,16 @@ public class RandomSpawn : MonoBehaviour
     {
         Vector3 pos = new Vector3(
             Random.value * range,
-            0.0f,
+            range * 2 + Random.value * range,
             Random.value * range);
         this.transform.position = pos;
         Debug.Log("Random spawn position: " + pos);
+    }
+    
+    void Update() {
+        Vector3 currentPos = this.transform.position;
+        if (currentPos.y < -5.0f) {
+           Start();
+        }
     }
 }
