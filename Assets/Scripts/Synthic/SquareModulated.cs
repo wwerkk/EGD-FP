@@ -59,7 +59,11 @@ namespace Synthic
         Vector3 v = parent.transform.position;
         v /= 50.0f;
         offset = v.magnitude;
-        offset *= offset;
+        offset = Mathf.Pow(offset, 5);
+        if (offset < 0.005f) {
+            offset = 0.0f;
+        }
+        // Debug.Log(offset);
         frequency = fundamental + fundamental * offset;
         Debug.Log("Frequency: " + frequency);
     }

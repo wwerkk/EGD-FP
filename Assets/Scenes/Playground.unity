@@ -414,7 +414,7 @@ PrefabInstance:
     - target: {fileID: -7404811842756470714, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
       propertyPath: frequency
-      value: 250
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 86860983049532721, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
@@ -480,6 +480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000285465891903345, guid: 13e2a54dc24c446a389720c5aa5b036d,
+        type: 3}
+      propertyPath: frequency
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 7833858587558664691, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
@@ -679,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 86860983049532721, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5684057180673713029, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
@@ -1273,7 +1278,7 @@ AudioLowPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729189084}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_LowpassResonanceQ: 3
   lowpassLevelCustomCurve:
@@ -1298,7 +1303,7 @@ AudioHighPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729189084}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CutoffFrequency: 3240
   m_HighpassResonanceQ: 3
 --- !u!1001 &746329221
@@ -2195,7 +2200,7 @@ AudioLowPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173413291}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_LowpassResonanceQ: 3
   lowpassLevelCustomCurve:
@@ -2220,7 +2225,7 @@ AudioHighPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173413291}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CutoffFrequency: 608
   m_HighpassResonanceQ: 3
 --- !u!114 &1173413301 stripped
@@ -2246,6 +2251,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ModulatedSonorous
+      objectReference: {fileID: 0}
+    - target: {fileID: 282685395789691823, guid: 95891daabfb824ecf926cd38a036bb26,
+        type: 3}
+      propertyPath: amplitude
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 282685395789691823, guid: 95891daabfb824ecf926cd38a036bb26,
+        type: 3}
+      propertyPath: fundamental
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5684057180673713029, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
@@ -2568,7 +2583,7 @@ AudioLowPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440133412}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_LowpassResonanceQ: 3
   lowpassLevelCustomCurve:
@@ -2593,7 +2608,7 @@ AudioHighPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440133412}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CutoffFrequency: 2445
   m_HighpassResonanceQ: 3
 --- !u!4 &1507700702 stripped
@@ -2612,7 +2627,7 @@ PrefabInstance:
     - target: {fileID: -7404811842756470714, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
       propertyPath: frequency
-      value: 150
+      value: 576
       objectReference: {fileID: 0}
     - target: {fileID: 86860983049532721, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
@@ -2679,6 +2694,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6000285465891903345, guid: 13e2a54dc24c446a389720c5aa5b036d,
+        type: 3}
+      propertyPath: frequency
+      value: 144
+      objectReference: {fileID: 0}
     - target: {fileID: 7833858587558664691, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
       propertyPath: Loop
@@ -2716,7 +2736,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
-    - {fileID: 7398714934036021575, guid: 13e2a54dc24c446a389720c5aa5b036d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 13e2a54dc24c446a389720c5aa5b036d, type: 3}
 --- !u!1 &1583048611 stripped
 GameObject:
@@ -2737,7 +2756,7 @@ AudioLowPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583048611}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_LowpassResonanceQ: 3
   lowpassLevelCustomCurve:
@@ -2762,7 +2781,7 @@ AudioHighPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583048611}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CutoffFrequency: 1002
   m_HighpassResonanceQ: 3
 --- !u!1 &1638965579 stripped
@@ -2862,7 +2881,7 @@ PrefabInstance:
     - target: {fileID: 86860983049532721, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5684057180673713029, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
@@ -2946,7 +2965,7 @@ PrefabInstance:
     - target: {fileID: 86860983049532721, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5684057180673713029, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
@@ -3034,7 +3053,7 @@ AudioLowPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735034333}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_LowpassResonanceQ: 3
   lowpassLevelCustomCurve:
@@ -3059,7 +3078,7 @@ AudioHighPassFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735034333}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CutoffFrequency: 2690
   m_HighpassResonanceQ: 3
 --- !u!1 &1743011005
@@ -3172,7 +3191,7 @@ PrefabInstance:
     - target: {fileID: -7404811842756470714, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
       propertyPath: frequency
-      value: 100
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 86860983049532721, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
@@ -3244,6 +3263,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6000285465891903345, guid: 13e2a54dc24c446a389720c5aa5b036d,
+        type: 3}
+      propertyPath: frequency
+      value: 135
+      objectReference: {fileID: 0}
     - target: {fileID: 7833858587558664691, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
       propertyPath: Loop
@@ -3303,7 +3327,7 @@ PrefabInstance:
     - target: {fileID: 86860983049532721, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5684057180673713029, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
@@ -3525,7 +3549,7 @@ PrefabInstance:
     - target: {fileID: -7404811842756470714, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
       propertyPath: frequency
-      value: 200
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 86860983049532721, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
@@ -3591,6 +3615,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000285465891903345, guid: 13e2a54dc24c446a389720c5aa5b036d,
+        type: 3}
+      propertyPath: frequency
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 7833858587558664691, guid: 13e2a54dc24c446a389720c5aa5b036d,
         type: 3}
