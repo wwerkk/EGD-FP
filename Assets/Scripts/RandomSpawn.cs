@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class RandomSpawn : MonoBehaviour
 {
-    public float range = 50.0f;
+    public GameObject playerObject;
+    public float range = 25.0f;
     void Start()
     {
-        Vector3 pos = new Vector3(
-            Random.value * range,
-            range * 2 + Random.value * range,
-            Random.value * range);
-        this.transform.position = pos;
-        Debug.Log("Random spawn position: " + pos);
+        Spawn();
     }
     
     void Update() {
-        Vector3 currentPos = this.transform.position;
-        if (currentPos.y < -5.0f) {
-           Start();
+        if (this.transform.position.y < -10.0f) {
+            Spawn();
         }
+    }
+
+    void Spawn() {
+        Vector3 pos = new Vector3(
+            Random.value * range,
+            range * 2 + Random.value * range,
+            Random.value * range
+        );
+        playerObject.transform.position = pos;
+        Debug.Log("Random spawn position: " + playerObject.transform.position.ToString());
     }
 }

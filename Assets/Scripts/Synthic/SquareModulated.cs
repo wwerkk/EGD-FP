@@ -14,6 +14,10 @@ namespace Synthic
         private float frequency = 50.0f;
         private float offset = 0.0f;
 
+        public float stationaryTolerance = 0.005f;
+        public Rigidbody body;
+
+
         private static BurstSineDelegate _burstSine;
 
         private double _phase;
@@ -53,19 +57,29 @@ namespace Synthic
             return phase;
         }
 
-    void Update()
-    {
-        GameObject parent = transform.parent.gameObject;
-        Vector3 v = parent.transform.position;
-        v /= 50.0f;
-        offset = v.magnitude;
-        offset = Mathf.Pow(offset, 5);
-        if (offset < 0.005f) {
-            offset = 0.0f;
+        void Update()
+        {
+            GameObject parent = transform.parent.gameObject;
+            Vector3 v = parent.transform.position;
+            v /= 50.0f;
+            offset = v.magnitude;
+            offset = Mathf.Pow(offset, 3);
+            if (offset < 0.0001f) {
+                offset = 0.0f;
+            }
+            // Debug.Log(offset);
+            frequency = fundamental + fundamental * offset;
+            // Debug.Log("Frequency: " + frequency);
+            // Debug.Log(IsStationary);
+            Debug.Log(body.velocity.sqrMagnitude);
         }
-        // Debug.Log(offset);
-        frequency = fundamental + fundamental * offset;
-        Debug.Log("Frequency: " + frequency);
-    }
+
+        public float getRatio() {
+            return 1.0f + offset;
+        }
+
+        bool IsStationary { get {
+            return body.velocity.sqrMagnitude < stationaryTolerance * stationaryTolerance;
+        }}
     }
 }

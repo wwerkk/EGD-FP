@@ -50,5 +50,15 @@ namespace Synthic
             // return the updated phase
             return phase;
         }
+
+        public void SetFrequency(float f)
+        {
+            frequency = f;
+        }
+
+        public void SetAmplitude(float a)
+        {
+            amplitude = a;
+        }
     }
 }
