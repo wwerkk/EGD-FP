@@ -13,6 +13,7 @@ public class RandomSpawn : MonoBehaviour
     
     void Update() {
         if (this.transform.position.y < -10.0f) {
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             Spawn();
         }
     }
@@ -21,9 +22,9 @@ public class RandomSpawn : MonoBehaviour
         Vector3 pos = new Vector3(
             Random.value * range,
             range * 2 + Random.value * range,
-            Random.value * range
+            -range + Random.value * -range
         );
         playerObject.transform.position = pos;
-        Debug.Log("Random spawn position: " + playerObject.transform.position.ToString());
+        // Debug.Log("Random spawn position: " + playerObject.transform.position.ToString());
     }
 }
