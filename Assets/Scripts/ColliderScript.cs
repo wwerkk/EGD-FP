@@ -12,7 +12,7 @@ public class ColliderScript : MonoBehaviour
         if(other.tag == "Player")
         {
             Debug.Log("Player collided...");
-            GameObject obj = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject obj = Instantiate(prefab, new Vector3(0, 5, 0), Quaternion.identity);
             SineGenerator sine = obj.GetComponent<SineGenerator>();
             sine.SetFrequency(400.0f);
 

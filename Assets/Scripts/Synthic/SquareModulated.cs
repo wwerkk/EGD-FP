@@ -3,6 +3,7 @@ using Synthic.Native.Data;
 using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
+using TMPro;
 
 namespace Synthic
 {
@@ -13,9 +14,10 @@ namespace Synthic
         [SerializeField, Range(16.35f, 7902.13f)]private float fundamental = 50.0f;
         private float frequency = 50.0f;
         private float offset = 0.0f;
-
-        public float stationaryTolerance = 0.005f;
-        public Rigidbody body;
+        Vector3 lastPosition = Vector3.zero;
+        private float amplitude_ = 0.0f;
+        public TMP_Text display;
+        private int state = 0;
 
 
         private static BurstSineDelegate _burstSine;
@@ -31,15 +33,15 @@ namespace Synthic
 
         protected override void ProcessBuffer(ref SynthBuffer buffer)
         {
-            _phase = _burstSine(ref buffer, _phase, _sampleRate, amplitude, (frequency + offset));
+            _phase = _burstSine(ref buffer, _phase, _sampleRate, amplitude_, (frequency + offset));
         }
 
         private delegate double BurstSineDelegate(ref SynthBuffer buffer,
-            double phase, int sampleRate, float amplitude, float frequency);
+            double phase, int sampleRate, float amplitude_, float frequency);
 
         [BurstCompile]
         private static double BurstSine(ref SynthBuffer buffer,
-            double phase, int sampleRate, float amplitude, float frequency)
+            double phase, int sampleRate, float amplitude_, float frequency)
         {
             // calculate how much the phase should change after each sample
             double phaseIncrement = frequency / sampleRate;
@@ -47,7 +49,7 @@ namespace Synthic
             for (int sample = 0; sample < buffer.Length; sample++)
             {
                 // calculate and set buffer sample
-                buffer[sample] = new StereoData(Mathf.Sign((float) (math.sin(phase * 2 * math.PI))) * amplitude);
+                buffer[sample] = new StereoData(Mathf.Sign((float) (math.sin(phase * 2 * math.PI))) * amplitude_);
 
                 // increment _phase value for next iteration
                 phase = (phase + phaseIncrement) % 1;
@@ -56,6 +58,7 @@ namespace Synthic
             // return the updated phase
             return phase;
         }
+
 
         void Update()
         {
@@ -67,19 +70,39 @@ namespace Synthic
             if (offset < 0.0001f) {
                 offset = 0.0f;
             }
-            // Debug.Log(offset);
+            // offset = Mathf.Pow(offset, 3);
+            Debug.Log(offset);
             frequency = fundamental + fundamental * offset;
             // Debug.Log("Frequency: " + frequency);
             // Debug.Log(IsStationary);
-            Debug.Log(body.velocity.sqrMagnitude);
+            if(parent.transform.position != lastPosition) {
+                // Debug.Log(amplitude_);
+                display.text = "";
+                amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.05f);
+            } else {
+                // Debug.Log("Stationary...");
+                amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.01f);
+                string text = getRatio().ToString();
+                text = text.Substring(0, Mathf.Min(5, text.Length));
+                display.text = text;
+                display.color = Color.Lerp(Color.white, Color.black, amplitude_);
+            }
+            lastPosition = parent.transform.position;
         }
 
         public float getRatio() {
             return 1.0f + offset;
         }
 
-        bool IsStationary { get {
-            return body.velocity.sqrMagnitude < stationaryTolerance * stationaryTolerance;
-        }}
+        public void updateState(int state_) {
+            state = state_;
+            Debug.Log("State changed to " + state);
+        }
+        
+        public void setLastPartialPos(Vector3 pos_) {
+            // lastPartialPos = pos_;
+            // Debug.Log("New partial at: " + lastPartialPos.ToString());
+
+        }
     }
 }

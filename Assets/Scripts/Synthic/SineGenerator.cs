@@ -11,6 +11,7 @@ namespace Synthic
     {
         [SerializeField, Range(0, 1)] private float amplitude = 0.5f;
         [SerializeField, Range(16.35f, 7902.13f)] private float frequency = 261.62f; // middle C
+        private float amplitude_ = 0.0f;
 
         private static BurstSineDelegate _burstSine;
 
@@ -25,15 +26,15 @@ namespace Synthic
 
         protected override void ProcessBuffer(ref SynthBuffer buffer)
         {
-            _phase = _burstSine(ref buffer, _phase, _sampleRate, amplitude, frequency);
+            _phase = _burstSine(ref buffer, _phase, _sampleRate, amplitude_, frequency);
         }
 
         private delegate double BurstSineDelegate(ref SynthBuffer buffer,
-            double phase, int sampleRate, float amplitude, float frequency);
+            double phase, int sampleRate, float amplitude_, float frequency);
 
         [BurstCompile]
         private static double BurstSine(ref SynthBuffer buffer,
-            double phase, int sampleRate, float amplitude, float frequency)
+            double phase, int sampleRate, float amplitude_, float frequency)
         {
             // calculate how much the phase should change after each sample
             double phaseIncrement = frequency / sampleRate;
@@ -41,7 +42,7 @@ namespace Synthic
             for (int sample = 0; sample < buffer.Length; sample++)
             {
                 // calculate and set buffer sample
-                buffer[sample] = new StereoData((float) (math.sin(phase * 2 * math.PI) * amplitude));
+                buffer[sample] = new StereoData((float) (math.sin(phase * 2 * math.PI) * amplitude_));
 
                 // increment _phase value for next iteration
                 phase = (phase + phaseIncrement) % 1;
@@ -59,6 +60,14 @@ namespace Synthic
         public void SetAmplitude(float a)
         {
             amplitude = a;
+        }
+
+        private void Update() {
+                if (amplitude_ < amplitude) {
+                    amplitude_ += 0.0001f;
+                } else {
+                    amplitude_ = amplitude;
+                }
         }
     }
 }

@@ -112,14 +112,14 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 20
   MaxDistance: 500
   Pan2D: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d45fbabce344664a62c3ed895a8dbf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 0.2
+  amplitude: 0.1
   frequency: 261.62
 --- !u!114 &7398714934036021575
 MonoBehaviour:
