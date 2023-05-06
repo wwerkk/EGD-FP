@@ -14,7 +14,7 @@ namespace Synthic
         [SerializeField, Range(16.35f, 7902.13f)]private float fundamental = 50.0f;
         private float frequency = 50.0f;
         private float offset = 0.0f;
-        Vector3 lastPosition = Vector3.zero;
+        Vector3 lastPos = Vector3.zero;
         private float amplitude_ = 0.0f;
         public TMP_Text display;
         private int state = 0;
@@ -62,32 +62,22 @@ namespace Synthic
 
         void Update()
         {
-            GameObject parent = transform.parent.gameObject;
-            Vector3 v = parent.transform.position;
-            v /= 50.0f;
-            offset = v.magnitude;
+            Vector3 pos = this.transform.position;
+            offset = (pos / 50.0f).magnitude;
             offset = Mathf.Pow(offset, 3);
-            if (offset < 0.0001f) {
-                offset = 0.0f;
-            }
-            // offset = Mathf.Pow(offset, 3);
             Debug.Log(getRatio().ToString());
             frequency = fundamental + fundamental * offset;
-            // Debug.Log("Frequency: " + frequency);
-            // Debug.Log(IsStationary);
-            if(parent.transform.position != lastPosition) {
-                // Debug.Log(amplitude_);
+            if(pos != lastPos) {
                 display.text = "";
                 amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.01f);
             } else {
-                // Debug.Log("Stationary...");
                 amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.01f);
                 string text = getRatio().ToString();
                 text = text.Substring(0, Mathf.Min(5, text.Length));
                 display.text = text;
                 display.color = Color.Lerp(Color.white, Color.black, amplitude_);
             }
-            lastPosition = parent.transform.position;
+            lastPos = pos;
         }
 
         public float getRatio() {
