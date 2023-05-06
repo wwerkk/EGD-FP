@@ -13,7 +13,7 @@ public class CreatePartial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (state > 0) {
+        // if (state > 0) {
             float ratio = playerOsc.getRatio();
             // Debug.Log("Ratio: " + ratio.ToString());
             // float ratio = 0.0f;
@@ -25,7 +25,7 @@ public class CreatePartial : MonoBehaviour
                 Partial(ratio);
             }
             lastRatio = ratio;
-        }
+        // }
     }
 
     void Partial(float ratio) {

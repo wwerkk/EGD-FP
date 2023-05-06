@@ -71,14 +71,14 @@ namespace Synthic
                 offset = 0.0f;
             }
             // offset = Mathf.Pow(offset, 3);
-            Debug.Log(offset);
+            Debug.Log(getRatio().ToString());
             frequency = fundamental + fundamental * offset;
             // Debug.Log("Frequency: " + frequency);
             // Debug.Log(IsStationary);
             if(parent.transform.position != lastPosition) {
                 // Debug.Log(amplitude_);
                 display.text = "";
-                amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.05f);
+                amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.01f);
             } else {
                 // Debug.Log("Stationary...");
                 amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.01f);
