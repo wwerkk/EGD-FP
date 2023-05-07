@@ -107,7 +107,7 @@ namespace Synthic
             lastPartPos = pos + new Vector3(0.0f, 0.0f, 0.0f);
             Debug.Log(lastPartPos.ToString());
             GameObject obj = Instantiate(prefab, lastPartPos, Quaternion.identity);
-            SineGenerator sine = obj.GetComponent<SineGenerator>();
+            SineGenerator sine = obj.transform.GetChild(0).gameObject.GetComponent<SineGenerator>();
             float freq_ = fund_ * ratio_;
             while (freq_ >= wrap) {
                 freq_ *= 0.5f;
