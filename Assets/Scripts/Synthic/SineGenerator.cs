@@ -34,8 +34,9 @@ namespace Synthic
 
         [BurstCompile]
         private static double BurstSine(ref SynthBuffer buffer,
-            double phase, int sampleRate, float amplitude_, float frequency)
-        {
+            double phase, int sampleRate, float amplitude_, float frequency) {
+            amplitude_ /= (frequency / 400.0f);
+            amplitude_ = Mathf.Pow(amplitude_, 1.5f);
             // calculate how much the phase should change after each sample
             double phaseIncrement = frequency / sampleRate;
 

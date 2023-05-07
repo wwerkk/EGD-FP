@@ -47,8 +47,10 @@ namespace Synthic
 
         [BurstCompile]
         private static double BurstSine(ref SynthBuffer buffer,
-            double phase, int sampleRate, float amplitude_, float frequency)
-        {
+            double phase, int sampleRate, float amplitude_, float frequency) {
+
+            amplitude_ /= (frequency / 400.0f);
+            amplitude_ = Mathf.Pow(amplitude_, 1.5f);
             // calculate how much the phase should change after each sample
             double phaseIncrement = frequency / sampleRate;
 
@@ -83,6 +85,7 @@ namespace Synthic
                 amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.01f);
             } else {
                 amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.001f);
+                
                 if (ratio > (float) state + 0.995f && ratio < (float) state + 1.005f) {
                     // ratio = state + 1.0f;
                     fundamental *= lastRatio;
@@ -93,7 +96,7 @@ namespace Synthic
                 string text = ratio.ToString();
                 text = text.Substring(0, Mathf.Min(5, text.Length));
                 display.text = text;
-                display.color = Color.Lerp(Color.white, Color.black, amplitude_);
+                display.color = Color.Lerp(Color.clear, Color.white, amplitude_);
             }
             lastPos = pos;
         }
@@ -110,9 +113,7 @@ namespace Synthic
                 freq_ *= 0.5f;
             }
             sine.SetFrequency(freq_);
-            float amp = 0.75f;
-            amp = Mathf.Pow(amp, 2);
-            sine.SetAmplitude(amp);
+            
         }
     }
 }
