@@ -14,10 +14,13 @@ namespace Synthic
         [SerializeField, Range(16.35f, 7902.13f)]private float fundamental = 50.0f;
         private float frequency = 50.0f;
         private float offset = 0.0f;
-        Vector3 lastPos = Vector3.zero;
         private float amplitude_ = 0.0f;
-        public TMP_Text display;
+        Vector3 pos = Vector3.zero;
+        Vector3 lastPos = Vector3.zero;
+        Vector3 lastPartialPos = Vector3.zero;
         private int state = 0;
+        public TMP_Text display;
+        private float ratio = 0.0f;
 
 
         private static BurstSineDelegate _burstSine;
@@ -62,16 +65,19 @@ namespace Synthic
 
         void Update()
         {
-            Vector3 pos = this.transform.position;
-            offset = (pos / 50.0f).magnitude;
+            pos = this.transform.position;
+            offset = Vector3.Distance(pos, Vector3.zero);
+            offset /= 50.0f;
             offset = Mathf.Pow(offset, 3);
-            Debug.Log(getRatio().ToString());
-            frequency = fundamental + fundamental * offset;
+            if (offset < 0.01f) offset = 0.0f;
+            ratio = 1.0f + offset;
+            frequency = fundamental + fundamental * (ratio);
+            Debug.Log("Frequency: " + frequency.ToString());
             if(pos != lastPos) {
                 display.text = "";
                 amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.01f);
             } else {
-                amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.01f);
+                amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.001f);
                 string text = getRatio().ToString();
                 text = text.Substring(0, Mathf.Min(5, text.Length));
                 display.text = text;
@@ -81,18 +87,14 @@ namespace Synthic
         }
 
         public float getRatio() {
-            return 1.0f + offset;
+            return ratio;
         }
 
         public void updateState(int state_) {
             state = state_;
             Debug.Log("State changed to " + state);
-        }
-        
-        public void setLastPartialPos(Vector3 pos_) {
-            // lastPartialPos = pos_;
-            // Debug.Log("New partial at: " + lastPartialPos.ToString());
-
+            lastPartialPos = pos;
+            Debug.Log("New partial at: " + lastPartialPos.ToString());
         }
     }
 }

@@ -8,28 +8,24 @@ public class CreatePartial : MonoBehaviour
     public GameObject prefab;
     public SquareModulated playerOsc;
     private int state = 0;
-    private float lastRatio = 0.0f;
-    private Vector3 lastPosition = Vector3.zero;
+    private float ratio = 0.0f;
+    Vector3 pos = Vector3.zero;
+    Vector3 lastPos = Vector3.zero;
+
     // Update is called once per frame
     void Update()
     {
-        // if (state > 0) {
-            float ratio = playerOsc.getRatio();
-            // Debug.Log("Ratio: " + ratio.ToString());
-            // float ratio = 0.0f;
-            // Debug.Log(ratio  (float) state + 1.0f);
-            if (ratio > (float) state + 0.99f && ratio < (float) state + 1.01f && ratio == lastRatio) {
-                Debug.Log("Nice ratio: " + ratio.ToString());
-                // playerOsc.setLastPartialPos(this.transform.position);
-                // Debug.Log("Last partial pos: " + this.transform.position.ToString());
+            ratio = playerOsc.getRatio();
+            pos = this.transform.position;
+            if (ratio > (float) state + 0.99f && ratio < (float) state + 1.01f && pos == lastPos) {
                 Partial(ratio);
+                Debug.Log("Nice ratio: " + ratio.ToString());
             }
-            lastRatio = ratio;
-        // }
+            lastPos = pos;
     }
 
     void Partial(float ratio) {
-        Vector3 pos = this.transform.position;
+        pos = this.transform.position;
         pos += new Vector3(0.0f, 5.0f, 0.0f);
         Debug.Log(pos.ToString());
         GameObject obj = Instantiate(prefab, pos, Quaternion.identity);
