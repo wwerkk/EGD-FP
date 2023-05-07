@@ -63,11 +63,7 @@ namespace Synthic
         }
 
         private void Update() {
-                if (amplitude_ < amplitude) {
-                    amplitude_ += 0.0001f;
-                } else {
-                    amplitude_ = amplitude;
-                }
+                amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.01f);
         }
     }
 }

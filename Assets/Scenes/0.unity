@@ -7048,7 +7048,7 @@ PrefabInstance:
     - target: {fileID: 282685395789691823, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}
       propertyPath: amplitude
-      value: 0.9
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 282685395789691823, guid: 95891daabfb824ecf926cd38a036bb26,
         type: 3}

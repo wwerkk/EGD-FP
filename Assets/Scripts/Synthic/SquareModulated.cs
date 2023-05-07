@@ -23,6 +23,7 @@ namespace Synthic
         private float lastRatio = 1.0f;
         public TMP_Text display;
         public GameObject prefab;
+        private float wrap = 4000.0f;
 
 
         private static BurstSineDelegate _burstSine;
@@ -73,14 +74,17 @@ namespace Synthic
             offset = Mathf.Pow(offset, 3);
             ratio = 1.0f + offset;
             frequency = fundamental * ratio * lastRatio;
+            while (frequency >= wrap) {
+                frequency *= 0.5f;
+            }
             // Debug.Log("Frequency: " + frequency.ToString());
             if(pos != lastPos) {
                 display.text = "";
                 amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.01f);
             } else {
                 amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.001f);
-                if (ratio > (float) state + 0.99f && ratio < (float) state + 1.01f) {
-                    ratio = state + 1.0f;
+                if (ratio > (float) state + 0.995f && ratio < (float) state + 1.005f) {
+                    // ratio = state + 1.0f;
                     fundamental *= lastRatio;
                     Partial(fundamental, ratio);
                     lastRatio = ratio;
@@ -101,8 +105,12 @@ namespace Synthic
             Debug.Log(lastPartPos.ToString());
             GameObject obj = Instantiate(prefab, lastPartPos, Quaternion.identity);
             SineGenerator sine = obj.GetComponent<SineGenerator>();
-            sine.SetFrequency(fund_ * ratio_);
-            float amp = 1.0f / (ratio_);
+            float freq_ = fund_ * ratio_;
+            while (freq_ >= wrap) {
+                freq_ *= 0.5f;
+            }
+            sine.SetFrequency(freq_);
+            float amp = 0.75f;
             amp = Mathf.Pow(amp, 2);
             sine.SetAmplitude(amp);
         }
