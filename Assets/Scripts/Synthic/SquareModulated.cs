@@ -8,19 +8,21 @@ using TMPro;
 namespace Synthic
 {
     [BurstCompile]
-    public class SquareModulated : SynthProvider
-    {
+    public class SquareModulated : SynthProvider {
         [SerializeField, Range(0, 1)] private float amplitude = 0.5f;
         [SerializeField, Range(16.35f, 7902.13f)]private float fundamental = 50.0f;
-        private float frequency = 50.0f;
+        public float frequency = 50.0f;
         private float offset = 0.0f;
         private float amplitude_ = 0.0f;
+
         Vector3 pos = Vector3.zero;
         Vector3 lastPos = Vector3.zero;
-        Vector3 lastPartialPos = Vector3.zero;
+        Vector3 lastPartPos = Vector3.zero;
         private int state = 0;
-        public TMP_Text display;
         private float ratio = 0.0f;
+        private float lastRatio = 1.0f;
+        public TMP_Text display;
+        public GameObject prefab;
 
 
         private static BurstSineDelegate _burstSine;
@@ -66,19 +68,25 @@ namespace Synthic
         void Update()
         {
             pos = this.transform.position;
-            offset = Vector3.Distance(pos, Vector3.zero);
-            offset /= 50.0f;
+            float d = Vector3.Distance(pos, lastPartPos);
+            offset = d / 50.0f;
             offset = Mathf.Pow(offset, 3);
-            if (offset < 0.01f) offset = 0.0f;
             ratio = 1.0f + offset;
-            frequency = fundamental + fundamental * (ratio);
-            Debug.Log("Frequency: " + frequency.ToString());
+            frequency = fundamental * ratio * lastRatio;
+            // Debug.Log("Frequency: " + frequency.ToString());
             if(pos != lastPos) {
                 display.text = "";
                 amplitude_ = Mathf.Lerp(amplitude_, 0.0f, 0.01f);
             } else {
                 amplitude_ = Mathf.Lerp(amplitude_, amplitude, 0.001f);
-                string text = getRatio().ToString();
+                if (ratio > (float) state + 0.99f && ratio < (float) state + 1.01f) {
+                    ratio = state + 1.0f;
+                    fundamental *= lastRatio;
+                    Partial(fundamental, ratio);
+                    lastRatio = ratio;
+                    Debug.Log("Nice ratio: " + ratio.ToString());
+                }
+                string text = ratio.ToString();
                 text = text.Substring(0, Mathf.Min(5, text.Length));
                 display.text = text;
                 display.color = Color.Lerp(Color.white, Color.black, amplitude_);
@@ -86,15 +94,17 @@ namespace Synthic
             lastPos = pos;
         }
 
-        public float getRatio() {
-            return ratio;
-        }
-
-        public void updateState(int state_) {
-            state = state_;
-            Debug.Log("State changed to " + state);
-            lastPartialPos = pos;
-            Debug.Log("New partial at: " + lastPartialPos.ToString());
+        void Partial(float fund_, float ratio_) {
+            state++;
+            Debug.Log("State: " + state.ToString());
+            lastPartPos = pos + new Vector3(0.0f, 0.0f, 0.0f);
+            Debug.Log(lastPartPos.ToString());
+            GameObject obj = Instantiate(prefab, lastPartPos, Quaternion.identity);
+            SineGenerator sine = obj.GetComponent<SineGenerator>();
+            sine.SetFrequency(fund_ * ratio_);
+            float amp = 1.0f / (ratio_);
+            amp = Mathf.Pow(amp, 2);
+            sine.SetAmplitude(amp);
         }
     }
 }
